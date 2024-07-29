@@ -10,14 +10,18 @@ This repository contains the implementation of a simplified DNS client-server ap
 
 ## Workflow
 ```mermaid
-sequenceDiagram
-    participant Client
-    participant Server
-
-    Client->>Server: Send DNS Query
-    Server-->>Client: Acknowledge Receipt
-    Server->>Server: Process Query
-    Server->>Server: Look up Master File
-    Server-->>Client: Send Response
-    Client->>Client: Print Response
-    Client->>Client: Timeout if no response
+graph TD
+    A[Client Start] --> B[Create Query]
+    B --> C[Send Query to Server]
+    C --> D[Server Receives Query]
+    D --> E[Server Parses Query]
+    E --> F[Server Searches Records]
+    F --> G{Record Found?}
+    G -- Yes --> H[Generate Response]
+    G -- No --> I[No Matching Record Response]
+    H --> J[Server Sends Response]
+    I --> J
+    J --> K[Client Receives Response]
+    K --> L[Display Response]
+    L --> M[Client End]
+    J --> N[Server Continues Listening]
