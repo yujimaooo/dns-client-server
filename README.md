@@ -7,3 +7,17 @@ This repository contains the implementation of a simplified DNS client-server ap
 🛜 Accepts client queries and responds with appropriate DNS resource records.  
 🔊 Simulates network delays and handles multiple client requests concurrently.  
 💬 Implements DNS message format and processes A, CNAME, and NS query types.  
+
+## Workflow
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: Send DNS Query
+    Server-->>Client: Acknowledge Receipt
+    Server->>Server: Process Query
+    Server->>Server: Look up Master File
+    Server-->>Client: Send Response
+    Client->>Client: Print Response
+    Client->>Client: Timeout if no response
